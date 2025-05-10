@@ -1,0 +1,23 @@
+[
+    {
+      "keywords": ["hi", "hey"],
+      "response": "Hello there! How can I assist you?"
+    },
+    {
+      "keywords": ["help", "support"],
+      "response": "Sure! What do you need help with?"
+    },
+    {
+      "keywords": ["bye", "goodbye"],
+      "response": "Goodbye!"
+    },
+    {
+      "keywords": ["info", "Information", "Give me information", "project information"],
+      "response": "Sure thing! This is a profile app. I am a chat bot that is hooked up to a .json file that tells me what to say, so I have very few programmed responses!"
+    },
+    {
+      "keywords": ["Hello There", "hello there", "Hello There!", "hello there!", "Hello there"],
+      "response": "General Kenobi!"
+    }
+  ]
+  
