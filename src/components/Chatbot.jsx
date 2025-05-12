@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import responses from "../data/responses.json";
 import "../styles/Chatbot.css"; // Import css, json files
 
@@ -15,8 +15,15 @@ const ChatBot = () => {
     const userMessage = { sender: "User", text: input }; //set userMessage to input, assign sender to user
     const botResponse = getBotResponse(input); //send input to getBotResponse
 
-    setMessages((prev) => [...prev, userMessage, botResponse]);
+    // setMessages((prev) => [...prev, userMessage, botResponse]);
+    // setInput("");
+
+    setMessages((prev) => [...prev, userMessage]);
     setInput("");
+
+    setTimeout(() => {
+      setMessages((prev) => [...prev, botResponse]);
+    }, 1000); // 1000ms delay
   };
 
   const getBotResponse = (msg) => {
@@ -41,9 +48,7 @@ const ChatBot = () => {
             {messages.map((msg, idx) => (
               <div
                 key={idx}
-                className={`chatbot-message ${
-                  msg.sender === "Bot" ? "Bot" : "User"
-                }`}
+                className={`chatbot-message ${msg.sender === "Bot" ? "Bot" : "User"}`}
               >
                 <p>
                   <strong>{msg.sender}:</strong> {msg.text}
