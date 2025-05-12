@@ -9,6 +9,8 @@ import Chatbot from "./components/Chatbot"
 import male_image from "./assets/default-man.png"
 import female_image from "./assets/default-woman.png"
 import { useState } from "react"
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'; 
+import { faXmark } from '@fortawesome/free-solid-svg-icons';
 
 const App = () => {
 
@@ -51,6 +53,20 @@ const App = () => {
     },
   ];
 
+  //Variable to store the animation state
+ const [animation, setAnimation] = useState(false);
+ //function to update the animation state
+ const handleAnimation = () => {
+     setAnimation(false);
+ }
+
+ //Variable to store the mode state
+ const [mode, setMode] = useState("light");
+ //function to update the mode state
+ const handleModeChange = () => {
+   setMode(mode === "light" ? "dark" : "light");
+ };
+
   // get titles
   const titles = [...new Set(profiles.map((profile) => profile.title))]; //map profiles
 
@@ -58,19 +74,21 @@ const App = () => {
   //update the title on change of the drowndrop
   const handleTitleChange = (event) => {
     setTitle(event.target.value);
-    console.log(event.target.value);
+    setAnimation(true);
   };
 
   const [search, setSearch] = useState("");
   //update the search on change of the input
   const handleSearchChange = (event) => { //if search bar receives input, change state to that input
     setSearch(event.target.value);
+    setAnimation(true);
   };
 
   //clear the title and search
   const handleClear = () => {
     setTitle("");
     setSearch("");
+    setAnimation(true);
   };
 
   //filter the profiles based on the title
@@ -80,13 +98,17 @@ const App = () => {
       profile.name.toLowerCase().includes(search.toLowerCase()) //standardize search inputs
   );
 
+  const buttonStyle = {
+    border: "1px solid #ccc",
+  };
+
   return ( //combines all components. 
     <>
       <header>
-        <Navbar /> 
+        <Navbar mode={mode} updateMode={handleModeChange}/> 
       </header>
 
-      <main>
+      <main className={mode === "light" ? "light" : "dark"}>
       <Wrapper> 
           <h1>Profile App</h1>
         </Wrapper>
@@ -123,13 +145,21 @@ const App = () => {
                   value={search}
                 />
               </div>
-              <button onClick={handleClear}>Clear</button>
+              <button onClick={handleClear} style={buttonStyle}>
+              <span className="sr-only">Reset</span>
+              <FontAwesomeIcon icon={faXmark} />
+            </button>
             </div>
 
           <div className="container">
             <div className="profile-cards">
-            {filtedProfiles.map((profile) => ( //display profile cards 
-                <Card key={profile.email} {...profile} />
+            {filtedProfiles.map((profile) => ( //display profile cards. find using email, then trigger animations
+                 <Card
+                 key={profile.email}
+                 {...profile}
+                 animate={animation}
+                 updateAnimate={handleAnimation}
+               />
               ))}
             </div>
           </div>

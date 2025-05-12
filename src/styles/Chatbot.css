@@ -38,7 +38,7 @@
     flex-direction: column;
   }
   
-  .chatbot-message.user {
+  .chatbot-message.User { /*CSS change based on if sender is User or bot*/
     text-align: right;
   }
   

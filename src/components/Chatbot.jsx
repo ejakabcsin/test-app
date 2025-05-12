@@ -18,11 +18,11 @@ const ChatBot = () => {
     // setMessages((prev) => [...prev, userMessage, botResponse]);
     // setInput("");
 
-    setMessages((prev) => [...prev, userMessage]);
+    setMessages((prev) => [...prev, userMessage]); //array that stores previous messages, then sets input to empty string
     setInput("");
 
     setTimeout(() => {
-      setMessages((prev) => [...prev, botResponse]);
+      setMessages((prev) => [...prev, botResponse]); //array then stores previous bot response, waits 1s, then displays the response to the user
     }, 1000); // 1000ms delay
   };
 
@@ -33,22 +33,23 @@ const ChatBot = () => {
         return { sender: "Bot", text: entry.response }; //if it finds one, respond with appropriate answer
       }
     }
-    return { sender: "Bot", text: "Sorry, I didn’t understand that." };
+    return { sender: "Bot", text: "Sorry, I didn’t understand that." }; //essentially the "else" condition
   };
 
   return (
+    // Chat button toggle
     <div className="chatbot-container">
       <button className="chatbot-toggle" onClick={() => setIsOpen(!isOpen)}> 
         {isOpen ? "Close Chat" : "Open Chat"}
       </button>
 
-      {isOpen && (
+      {isOpen && ( //checks if chat box is open, then goes through and renders each message in a div
         <div className="chatbot-box">
           <div className="chatbot-messages">
-            {messages.map((msg, idx) => (
+            {messages.map((msg, idx) => ( 
               <div
                 key={idx}
-                className={`chatbot-message ${msg.sender === "Bot" ? "Bot" : "User"}`}
+                className={`chatbot-message ${msg.sender === "Bot" ? "Bot" : "User"}`} //checks if user or bot sent message (CSS changes based on sender)
               >
                 <p>
                   <strong>{msg.sender}:</strong> {msg.text}

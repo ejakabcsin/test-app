@@ -1,13 +1,16 @@
-import '../styles/card.css';
+//import '../styles/card.css';
+import style from '../styles/card.module.css'
 import PropTypes from 'prop-types';
 
-const Card = ({img, name, title, email}) => { //the cards
+const Card = ({img, name, title, email, animate, updateAnimate}) => { //the cards
     return (
-        <div className="profile-card">
-            <div className="profile-card__image">
+        <div className={`${style["profile-card"]} ${animate ? style["is-entering"] : ""}`} //check on the animations (imported from css) as well as the cards, 
+        onAnimationEnd={updateAnimate}
+        > 
+            <div className={style["profile-card__image"]}>
                 <img src={img} alt={name} />
             </div>
-            <div className="profile-card__content">
+            <div className={style["profile-card__content"]}>
                 <p>{name}</p>
                 <p>{title}</p>
                 <p><a href={`mailto:${email}`}>{email}</a></p>

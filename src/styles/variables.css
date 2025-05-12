@@ -1,17 +1,19 @@
 @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap');
 body{
     /* color scheme */
-    --primary-background-color: #f7f7f7;
+    --primary-background-color: #f7f7f7; /*vars are placed around the document, will eventually refer to this one for the colors, etc.*/
     --secondary-backrgound-color: #0d16c0; /*#646cff*/
-    --third-background-color: white;
+    --third-background-color: #ffffff;
+    --dark-background-color: #191a1a;
     --text-color: #191a1a;
+    --dark-text-color: #ffffff;
     --button-background-color: #1a1a1a;
     --button-text-color: #ffffff;
 
     /* --button-hover-background-color: #ffffff; */
     --button-hover-background-color: var(--primary-background-color);
     --button-hover-text-color: #191a1a;
-    --link-color: #646cff;
+    --link-color: #0d16c0;
     --link-hover-color: var(--text-color);
 
     /* font */

@@ -1,3 +1,4 @@
+/*Import necessary CSS files into this one, then use this one in App.jsx*/
 @import "../src/styles/reset.css";
 @import "../src/styles/variables.css";
 @import "../src/styles/global.css";
