@@ -25,13 +25,60 @@ const App = () => {
       title: "VIP of person",
       email: "wow@important.com",
     },
+    {
+      img: male_image,
+      name: "Jake Person",
+      title: "Web developer",
+      email: "super@person.com",
+    },
+    {
+      img: female_image,
+      name: "Jane Person",
+      title: "Web developer",
+      email: "super2@person.com",
+    },
+    {
+      img: male_image,
+      name: "Will Smith",
+      title: "Software Engineer",
+      email: "will@smith.com",
+    },
+    {
+      img: female_image,
+      name: "Jada Pinkett Smith",
+      title: "Graphic designer",
+      email: "jp@smith.com",
+    },
   ];
 
-const [clicked, setClicked] = useState(true);
-const handleClick = () => {
-  setClicked(!clicked);
-};
+  // get titles
+  const titles = [...new Set(profiles.map((profile) => profile.title))]; //map profiles
 
+  const [title, setTitle] = useState("");
+  //update the title on change of the drowndrop
+  const handleTitleChange = (event) => {
+    setTitle(event.target.value);
+    console.log(event.target.value);
+  };
+
+  const [search, setSearch] = useState("");
+  //update the search on change of the input
+  const handleSearchChange = (event) => { //if search bar receives input, change state to that input
+    setSearch(event.target.value);
+  };
+
+  //clear the title and search
+  const handleClear = () => {
+    setTitle("");
+    setSearch("");
+  };
+
+  //filter the profiles based on the title
+  const filtedProfiles = profiles.filter(
+    (profile) =>
+      (title === "" || profile.title === title) && //no title listed OR set to whatever title was inputted
+      profile.name.toLowerCase().includes(search.toLowerCase()) //standardize search inputs
+  );
 
   return ( //combines all components. 
     <>
@@ -42,9 +89,6 @@ const handleClick = () => {
       <main>
       <Wrapper> 
           <h1>Profile App</h1>
-          <button onClick={handleClick}>
-            {clicked ? "Click me" : "Clicked"}
-          </button>
         </Wrapper>
 
         <Wrapper>
@@ -53,15 +97,43 @@ const handleClick = () => {
 
         {/* The profile cards NEED to be within a container div, otherwise they will just go to the far left */}
 
-        <Wrapper />
+        <Wrapper>
+          <div className="filter-wrapper">
+              <div className="filter--select">
+                <label htmlFor="title-select">Select a title: </label>
+                <select
+                  id="title-select"
+                  onChange={handleTitleChange}
+                  value={title}
+                >
+                  <option value="">All</option>
+                  {titles.map((title) => ( //if user searches for specific title, display any that fit search term, otherwise display all
+                    <option key={title} value={title}>
+                      {title}
+                    </option>
+                  ))}
+                </select>
+              </div>
+              <div className="filter--search">
+                <label htmlFor="search">Search by name: </label>
+                <input
+                  type="text"
+                  id="search"
+                  onChange={handleSearchChange}
+                  value={search}
+                />
+              </div>
+              <button onClick={handleClear}>Clear</button>
+            </div>
+
           <div className="container">
             <div className="profile-cards">
-              {profiles.map((profile) => (
+            {filtedProfiles.map((profile) => ( //display profile cards 
                 <Card key={profile.email} {...profile} />
               ))}
             </div>
           </div>
-        <Wrapper />
+        </Wrapper>
 
         <Chatbot />
       </main>
